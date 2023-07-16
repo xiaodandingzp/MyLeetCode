@@ -3,6 +3,13 @@ package com.example.myleetcode
 import android.util.Log
 import kotlin.math.absoluteValue
 
+/***
+ * 思路
+ * 动态规划
+ * 递归
+ * 双指针
+ */
+
 object MyLeedCode {
     const val TAG = "MyLeedCode"
     //字符串转换整数
@@ -251,5 +258,36 @@ object MyLeedCode {
             val res = stringBuilder + it
             getString(digits, index + 1, map, result, res)
         }
+    }
+
+//    最长公共前缀
+    fun longestCommonPrefix(strs: Array<String>): String {
+        if (strs.isNullOrEmpty()) return ""
+        if (strs.size == 1) return strs[0]
+        var result = strs[0]
+        for (i in 1 until strs.size) {
+            if (result.isEmpty()) return ""
+            var j = 0
+            while (j < result.length && j < strs[i].length) {
+                if (result[j] != strs[i][j]) break
+                j++
+            }
+            result = result.substring(0, j)
+        }
+        return result
+    }
+
+//    盛最多水的容器
+    fun maxArea(height: IntArray): Int {
+        var left = 0
+        var right = height.size - 1
+        var max = 0
+        while (left < right) {
+            max = Math.max(max, Math.min(height[left], height[right]) * (right - left))
+            if (height[left] < height[right]) {
+                left++
+            } else right++
+        }
+        return max
     }
 }
