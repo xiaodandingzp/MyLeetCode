@@ -290,4 +290,13 @@ object MyLeedCode {
         }
         return max
     }
+//   20 有效的括号
+    fun isValid(s: String): Boolean {
+        var result = s
+        if ((result.length % 2) !== 0) return false
+        for (i in 0 until  (result.length / 2)) {
+            result = result.replace("()", "").replace("[]", "").replace("{}", "")
+        }
+        return result.isEmpty()
+    }
 }
