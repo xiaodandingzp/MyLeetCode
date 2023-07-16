@@ -223,4 +223,33 @@ object MyLeedCode {
         }
     }
     return threeTotal    }
+
+//    17. 电话号码的字母组合
+    fun letterCombinations(digits: String): List<String> {
+        if(digits.isEmpty()) return arrayListOf()
+        val map: HashMap<Char, List<String>> = HashMap<Char, List<String>>().apply {
+            put('2', arrayListOf("a", "b", "c"))
+            put('3', arrayListOf("d", "e", "f"))
+            put('4', arrayListOf("g", "h", "i"))
+            put('5', arrayListOf("j", "k", "l"))
+            put('6', arrayListOf("m", "n", "o"))
+            put('7', arrayListOf("p", "q", "r", "s"))
+            put('8', arrayListOf("t", "u", "v"))
+            put('9', arrayListOf("w", "x", "y", "z"))
+        }
+        val result: ArrayList<String> = arrayListOf()
+        getString(digits, 0, map, result, "")
+        return result
+    }
+
+    private fun getString(digits: String, index: Int, map: HashMap<Char, List<String>>, result: ArrayList<String>, stringBuilder: String) {
+        if (index >= digits.length) {
+            result.add(stringBuilder)
+            return
+        }
+        map[digits[index]]?.forEach {
+            val res = stringBuilder + it
+            getString(digits, index + 1, map, result, res)
+        }
+    }
 }
