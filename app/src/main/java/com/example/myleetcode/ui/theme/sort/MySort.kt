@@ -1,0 +1,23 @@
+package com.example.myleetcode.ui.theme.sort
+
+object MySort {
+//    快速排序
+    fun quickSort(arr: ArrayList<Int>) {
+        quickSort(arr, 0, arr.size - 1)
+    }
+    private fun quickSort(arr: ArrayList<Int>, start: Int, endPre: Int) {
+        if (start < endPre) return
+        val key = arr[start]
+        var begin = start
+        var end = endPre
+        while (begin < end) {
+            while (begin < end && arr[end] > key) end--
+            arr[begin] = arr[end]
+            while (begin < end && arr[begin] < key) begin++
+            arr[end] = arr[begin]
+        }
+        arr[begin] = key
+        quickSort(arr, start, begin - 1)
+        quickSort(arr, begin + 1, endPre)
+    }
+}
