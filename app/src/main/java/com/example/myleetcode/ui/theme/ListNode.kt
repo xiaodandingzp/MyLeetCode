@@ -43,4 +43,35 @@ class ListNode(var `val`: Int) {
         }
         return num + 1
     }
+
+    fun mergeTwoLists(list1: ListNode?, list2: ListNode?): ListNode? {
+        if (list1 == null) return list2
+        else if (list2 == null) return list1
+        else if (list1.`val` > list2.`val`) {
+            list1.next = mergeTwoLists(list1.next, list2)
+            return list1
+        } else {
+            list2.next = mergeTwoLists(list1, list2.next)
+            return list2
+        }
+    }
+
+    fun mergeTwoLists2(list1: ListNode?, list2: ListNode?): ListNode? {
+        var resultListNode1: ListNode? = ListNode(-1)
+        var resultListNode = resultListNode1
+        var l1: ListNode? = list1
+        var l2: ListNode? = list2
+        while (l1 != null && l2 != null) {
+           if (l1.`val` > l2.`val`) {
+                resultListNode?.next = l2
+                l2 = l2.next
+            } else {
+                resultListNode?.next = l1
+                l1 = l1.next
+            }
+            resultListNode = resultListNode?.next
+        }
+        resultListNode?.next = l1 ?: l2
+        return resultListNode1?.next
+    }
 }
