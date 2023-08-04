@@ -74,4 +74,31 @@ class ListNode(var `val`: Int) {
         resultListNode?.next = l1 ?: l2
         return resultListNode1?.next
     }
+
+//    将所有链表合并到一个升序链表中，返回合并后的链表。
+//    先合并两个，再顺序合并或者分治合并
+    fun mergeKLists(lists: Array<ListNode?>): ListNode? {
+        val result: ListNode = ListNode(-1)
+        var resultTem: ListNode? = result
+        if (lists.size > 0) {
+            var min = 0
+            while (true) {
+                for (i in lists.indices) {
+                    if (lists[min] == null) {
+                        min = i
+                        continue
+                    }
+                    if (lists[i] != null && lists[i]!!.`val` <= lists[min]!!.`val`) {
+                        min = i
+                    }
+                }
+                if (lists[min] != null) {
+                    resultTem?.next = lists[min]
+                    lists[min] = lists[min]?.next
+                    resultTem = resultTem?.next
+                } else break
+            }
+        }
+        return result.next
+    }
 }

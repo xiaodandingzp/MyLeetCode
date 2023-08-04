@@ -299,4 +299,23 @@ object MyLeedCode {
         }
         return result.isEmpty()
     }
+
+    fun generateParenthesis(n: Int): List<String> {
+        val resList: ArrayList<String> = arrayListOf()
+        addRes(n, n , "", resList)
+        return resList
+    }
+
+    fun addRes(left: Int, right: Int, ss: String, reList: ArrayList<String>) {
+        if (left == 0 && right == 0) {
+            reList.add(ss)
+            return
+        }
+        if (left > 0) {
+            addRes(left - 1, right, "$ss(", reList)
+        }
+        if (right > left && right > 0) {
+            addRes(left, right - 1, "$ss)", reList)
+        }
+    }
 }
