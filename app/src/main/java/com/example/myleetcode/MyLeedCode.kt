@@ -318,4 +318,79 @@ object MyLeedCode {
             addRes(left, right - 1, "$ss)", reList)
         }
     }
+
+    fun removeElement(nums: IntArray, `val`: Int): Int {
+        if (nums.size <= 0) return 0
+        var result = 0
+        for (i in nums.indices) {
+            if (nums[i] != `val`) {
+                nums[result++] = nums[i]
+            }
+        }
+        return result
+    }
+
+    fun strStr(haystack: String, needle: String): Int {
+        var j = 0
+        for (i in haystack.indices) {
+            if (haystack[i] == needle[0]) {
+                var s1 = i
+                while (s1 < haystack.length && j < needle.length) {
+                    if (haystack[s1] == needle[j]) {
+                        s1++
+                        j++
+                    } else {
+                        break
+                    }
+                }
+                if (j == needle.length) return s1 - needle.length
+                j = 0
+            }
+        }
+        return -1
+    }
+
+    fun divide(dividend: Int, divisor: Int): Int {
+        if (dividend == Int.MIN_VALUE) {
+            if (divisor == 1) return Int.MIN_VALUE
+            if (divisor == -1) return Int.MAX_VALUE
+        }
+        if (divisor == Int.MIN_VALUE) {
+            return if (dividend == Int.MIN_VALUE) 1
+            else 0
+        }
+        if (dividend < divisor) return 0
+        if (dividend == 0) return 0
+        if (dividend < 0) return -divide(-dividend, divisor)
+        if (divisor < 0) return -divide(dividend, -divisor)
+        var  res = 1
+        var temp = divisor
+        while ((dividend - temp) <= divisor) {
+            temp += temp
+            res += res
+        }
+        return res + divide(dividend - temp, divisor)
+    }
+
+    fun divide1(dividend: Int, divisor: Int): Int {
+        if (dividend == Int.MIN_VALUE) {
+            if (divisor == 1) return Int.MIN_VALUE
+            if (divisor == -1) return Int.MAX_VALUE
+        }
+        if (divisor == Int.MIN_VALUE) {
+            return if (dividend == Int.MIN_VALUE) 1
+            else 0
+        }
+        if (dividend == 0) return 0
+        if (dividend > 0) return -divide1(-dividend, divisor)
+        if (divisor > 0) return -divide1(dividend, -divisor)
+        if (dividend > divisor) return 0
+        var temp = divisor
+        var res = 1
+        while ((dividend - temp) <= temp) {
+            res += res
+            temp += temp
+        }
+        return res + divide1((dividend - temp), divisor)
+    }
 }

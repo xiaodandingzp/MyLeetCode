@@ -101,4 +101,33 @@ class ListNode(var `val`: Int) {
         }
         return result.next
     }
+
+    fun swapPairs(head: ListNode?): ListNode? {
+        if (head == null) return head
+        val resultNode = ListNode(-1)
+        var nodeTemp = resultNode
+        var first = head
+        var second = first.next
+        while (first != null && second != null) {
+            first.next = second.next
+            nodeTemp.next = second
+            second.next = first
+            nodeTemp = first
+            first = first.next
+            if (first != null) {
+                second = first.next
+            } else second = null
+        }
+        if (first != null) nodeTemp.next = first
+        return resultNode.next
+    }
+
+//    递归解决方法
+    fun swapPairs1(head: ListNode?): ListNode? {
+        if (head?.next == null) return head
+        val next = head.next
+        head.next = swapPairs1(next?.next)
+        next!!.next = head
+        return next
+    }
 }
