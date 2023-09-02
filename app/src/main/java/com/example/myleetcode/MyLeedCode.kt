@@ -372,6 +372,7 @@ object MyLeedCode {
         return res + divide(dividend - temp, divisor)
     }
 
+//    整数数组的 下一个排列 是指其整数的下一个字典序更大的排列
     fun divide1(dividend: Int, divisor: Int): Int {
         if (dividend == Int.MIN_VALUE) {
             if (divisor == 1) return Int.MIN_VALUE
@@ -392,5 +393,30 @@ object MyLeedCode {
             temp += temp
         }
         return res + divide1((dividend - temp), divisor)
+    }
+
+    fun nextPermutation(nums: IntArray): Unit {
+        if (nums.size > 1) {
+            var j = nums.size - 2
+            while (j >= 0 && nums[j] >= nums[j +1]) j--
+            if (j >= 0) {
+                var i = nums.size - 1
+                while (i > j && nums[i] <= nums[j]) i--
+                if (i > j) {
+                    val tem = nums[j]
+                    nums[j] = nums[i]
+                    nums[i] = tem
+                }
+            }
+            var left = j + 1
+            var right = nums.size - 1
+            while (left < right) {
+                val temp = nums[left]
+                nums[left] = nums[right]
+                nums[right] = temp
+                left++
+                right--
+            }
+        }
     }
 }
