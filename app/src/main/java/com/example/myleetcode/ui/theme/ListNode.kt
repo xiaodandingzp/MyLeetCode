@@ -130,4 +130,109 @@ class ListNode(var `val`: Int) {
         next!!.next = head
         return next
     }
+
+//**********************************************************************************************
+//   接下来是链表
+
+
+//    链表翻转---递归
+    fun fanzhuan(head: ListNode?): ListNode? {
+        if (head?.next == null) return head
+        val temp = fanzhuan(head.next)
+        head.next?.next = head
+        head.next = null
+        return temp
+    }
+
+
+    //    链表翻转---非递归
+    fun fanzhuan2(head: ListNode?): ListNode? {
+        if (head?.next == null) return head
+        var pre: ListNode? = null
+        var cur = head
+        while (cur?.next != null) {
+            val next = cur.next
+            cur.next = pre
+            pre = cur
+            cur = next
+        }
+        return pre
+    }
+
+// 两两翻转链表---非递归
+    fun fanzhuanTwo(head: ListNode?): ListNode? {
+        if (head?.next == null) return head
+        var pre = ListNode(-1)
+        var result = head.next
+        var cur = head
+        while (cur?.next != null) {
+            val next = cur.next
+            cur.next = next?.next
+            next?.next = cur
+            pre.next = next
+            pre = cur
+            cur = cur.next
+        }
+        return result
+    }
+
+//    两两翻转链表---递归
+    fun fanzhuanTwo2(head: ListNode?): ListNode? {
+        if (head?.next == null) return head
+        var pre = head
+        var cur = head.next
+        var temp = fanzhuanTwo2(cur!!.next)
+        pre.next = temp
+        cur.next = pre
+        return cur
+    }
+
+//    合并两个有序列表-递归
+    fun merginList(list1: ListNode?, list2: ListNode?): ListNode? {
+        if (list1 == null) return list2
+        if (list2 == null) return list1
+        if (list1.`val` > list2.`val`) {
+            list2.next = merginList(list1, list2.next)
+            return list2
+        }
+        else {
+            list1.next = merginList(list1.next, list2)
+            return list1
+        }
+    }
+
+//    K 个一组翻转链表---递归
+    /**
+     * 先写一个翻转k个节点的函数，返回头部和尾部
+     *
+     */
+    fun reverseKGroup(head: ListNode?, k: Int): ListNode? {
+        if (head?.next == null) return head
+        if (k <= 0) return head
+        var temp = head
+        var size = 1
+        while (temp != null && size < k) {
+            size++
+            temp = temp.next
+        }
+        if (size < k || temp == null) return head
+        val next = reverseKGroup(temp.next, k)
+        val pair = reverseKGroupK(head, k)
+        pair.second?.next = next
+        return pair.first
+    }
+
+    fun reverseKGroupK(head: ListNode?, k: Int): Pair<ListNode?, ListNode?> {
+        var pre = head
+        var cur = head?.next
+        var count = 1
+        while (count < k) {
+            count++
+            val temp = cur?.next
+            cur?.next = pre
+            pre = cur
+            cur = temp
+        }
+        return Pair(pre, head)
+    }
 }
