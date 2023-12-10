@@ -122,7 +122,7 @@ class ListNode(var `val`: Int) {
         return resultNode.next
     }
 
-//    递归解决方法
+//    递归解决方法 两两交换链表中的节点（相当于三个节点，前两个节点互换位置，一直重复这个步骤）
     fun swapPairs1(head: ListNode?): ListNode? {
         if (head?.next == null) return head
         val next = head.next
@@ -216,7 +216,7 @@ class ListNode(var `val`: Int) {
             temp = temp.next
         }
         if (size < k || temp == null) return head
-        val next = reverseKGroup(temp.next, k)
+        val next = reverseKGroup1(temp.next, k)
         val pair = reverseKGroupK(head, k)
         pair.second?.next = next
         return pair.first
@@ -234,5 +234,30 @@ class ListNode(var `val`: Int) {
             cur = temp
         }
         return Pair(pre, head)
+    }
+
+    fun reverseKGroup1(head: ListNode?, k: Int): ListNode? {
+        if (head?.next == null) return head
+        var temp = head
+        var length = 0
+        while (temp != null) {
+            length++
+            temp = temp.next
+        }
+        var result = ListNode(-1)
+        result.next = head
+        var pre: ListNode? = result
+        var cur = head
+        for (i in 0 until (length / k)) {
+            for (i in 1 until k) {
+                val next = cur?.next
+                cur!!.next = next?.next
+                next!!.next = pre?.next
+                pre!!.next = next
+            }
+            pre = cur
+            cur = pre?.next
+        }
+        return result.next
     }
 }

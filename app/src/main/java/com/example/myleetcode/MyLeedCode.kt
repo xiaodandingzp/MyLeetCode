@@ -1,6 +1,7 @@
 package com.example.myleetcode
 
 import android.util.Log
+import java.util.Stack
 import kotlin.math.absoluteValue
 
 /***
@@ -418,5 +419,86 @@ object MyLeedCode {
                 right--
             }
         }
+    }
+
+    fun maxProfit(prices: IntArray): Int {
+        if (prices.size == 1) return 0
+        var max = 0
+        var min = prices[0]
+        for (i in 1 until prices.size) {
+            if (min > prices[i]) {
+                min = prices[i]
+            } else {
+                if (max < (prices[i] - min))  {
+                    max = prices[i] - min
+                }
+            }
+        }
+        return max
+    }
+
+    fun searchInsert(nums: IntArray, target: Int): Int {
+        return search(nums, 0, nums.size - 1, target)
+    }
+
+    fun search(nums: IntArray, left: Int, right: Int, target: Int): Int {
+        return if (left < right) {
+            val mid = (left + right) / 2
+            if (nums[mid] == target) mid
+            else if(nums[mid] > target) search(nums, left, mid, target)
+            else if(left == mid) search(nums, mid + 1, right, target)
+            else search(nums, mid, right, target)
+        } else {
+            if (nums[left] >= target) left
+            else left + 1
+        }
+    }
+
+
+    fun combinationSum(candidates: IntArray, target: Int): List<List<Int>> {
+        val result: ArrayList<ArrayList<Int>> = ArrayList()
+        combinationSum1(candidates, 0, result, ArrayList<Int>(), target)
+        return result
+    }
+
+    fun combinationSum1(candidates: IntArray, index: Int, result: ArrayList<ArrayList<Int>>,
+                        temp: ArrayList<Int>, target: Int){
+        if (temp.sum() == target && temp.size > 0) {
+            result.add(temp)
+            return
+        }
+        if (index == candidates.size || temp.sum() > target) return
+
+        val temp2 = ArrayList<Int>().apply {
+            addAll(temp)
+            add(candidates[index])
+        }
+        combinationSum1(candidates, index, result, temp2, target, )
+        val temp1 = ArrayList<Int>().apply {
+            addAll(temp)
+        }
+        combinationSum1(candidates, index + 1, result, temp1, target)
+    }
+
+
+    fun longestValidParentheses(s: String): Int {
+        if (s.isEmpty()) return 0
+        var maxS = 0
+        var left: Stack<Int> = Stack()
+        left.push(-1)
+        for (i in s.indices) {
+            if (s[i] == '(') {
+                left.push(i)
+            } else {
+                if (left.size == 1) {
+                    left.pop()
+                    left.push(i)
+                } else {
+                    left.pop()
+                    maxS = maxS.coerceAtLeast(i - left.peek())
+                }
+            }
+        }
+        return maxS
     }
 }
