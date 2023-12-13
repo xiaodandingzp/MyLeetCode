@@ -20,4 +20,24 @@ object MySort {
         quickSort(arr, start, begin - 1)
         quickSort(arr, begin + 1, endPre)
     }
+
+    fun fastSort(arr: ArrayList<Int>) {
+        fastSort(arr, 0, arr.size - 1)
+    }
+
+    private fun fastSort(arr: ArrayList<Int>, start: Int, end: Int) {
+        if (start >= end) return
+        var key = arr[start]
+        var startTemp = start
+        var endTemp = end
+        while (startTemp < endTemp) {
+            while (startTemp < endTemp && arr[endTemp] > key) endTemp--
+            arr[startTemp] = arr[endTemp]
+            while (startTemp < endTemp && arr[startTemp] < key) startTemp++
+            arr[endTemp] = arr[startTemp]
+        }
+        arr[startTemp] = key
+        fastSort(arr, 0, startTemp - 1)
+        fastSort(arr, endTemp + 1, 0)
+    }
 }
