@@ -4,6 +4,12 @@ import java.lang.StringBuilder
 
 /**
  * 二进制数字的解决方案：或 与 异或
+ * eg:输入数组中除了一个数组出现一次之外，其他的数字都出现了两次，请找出只出现一次的数字
+ * 解：将数组中所有的数字进行异或运算
+ *
+ * int类型是有32个0或者1组成的，可以按位运算
+ * eg:输入数组中除了一个数组出现一次之外，其他的数字都出现了三次，请找出只出现一次的数组
+ * 解：按位加 然后按位除以3
  */
 class BinaryPlus {
 
@@ -70,6 +76,22 @@ class BinaryPlus {
         var result : IntArray = IntArray(num + 1)
         for (i in 1..num) {
             result[i] = result[i shl 1] + (i and 1)
+        }
+        return result
+    }
+
+
+//    输入数组中除了一个数组出现一次之外，其他的数字都出现了三次，请找出只出现一次的数组
+    fun singleNumber(nums: IntArray): Int {
+        val resultTemp = IntArray(32)
+        for (num in nums) {
+            for (i in 0 until 32) {
+                resultTemp[i] += (num shr (31 - i)) and 1
+            }
+        }
+        var result = 0
+        for (i in 0 until 32) {
+            result = (result shl 1) + resultTemp[i] % 3
         }
         return result
     }
