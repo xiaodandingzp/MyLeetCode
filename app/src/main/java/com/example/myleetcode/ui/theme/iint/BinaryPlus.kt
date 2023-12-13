@@ -2,7 +2,12 @@ package com.example.myleetcode.ui.theme.iint
 
 import java.lang.StringBuilder
 
+/**
+ * 二进制数字的解决方案：或 与 异或
+ */
 class BinaryPlus {
+
+//    两个二进制的树相加
     fun addBinary(a: String, b: String): String {
         if (a.isNullOrEmpty()) return b
         if (b.isNullOrEmpty()) return a
@@ -32,5 +37,40 @@ class BinaryPlus {
         }
         if (tempY == 1) result.append('1')
         return result.reverse().toString()
+    }
+
+
+//    前N个数字二进制形式中1的个数
+    /*
+    * (i and 1) 可以计算是偶数还是奇数
+    *  (i shl 1) 左移一位
+     */
+    fun countBits(num: Int): IntArray {
+        var result : IntArray = IntArray(num + 1)
+        for (i in 1..num) {
+//            计算某个二进制数字中1的个数
+            var j = i
+            while (j > 0) {
+                result[i]++
+                j = j and (j - 1)
+            }
+        }
+        return result
+    }
+
+    fun countBits1(num: Int): IntArray {
+        var result : IntArray = IntArray(num + 1)
+        for (i in 1..num) {
+            result[i] = result[i and (i - 1)] + 1
+        }
+        return result
+    }
+
+    fun countBits2(num: Int): IntArray {
+        var result : IntArray = IntArray(num + 1)
+        for (i in 1..num) {
+            result[i] = result[i shl 1] + (i and 1)
+        }
+        return result
     }
 }
