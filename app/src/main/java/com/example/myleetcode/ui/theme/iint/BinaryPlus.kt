@@ -130,7 +130,7 @@ class BinaryPlus {
 
 
     fun maxProduct1(words: List<String>): Int {
-        val binArray: IntArray = IntArray(26)
+        val binArray = IntArray(26)
         for (i in words.indices) {
             words[i].forEach {
                 binArray[i] = (1 shl (it - 'a')) or binArray[i]
@@ -144,5 +144,6 @@ class BinaryPlus {
                 }
             }
         }
+        return result
     }
 }
