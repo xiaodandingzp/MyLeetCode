@@ -13,7 +13,7 @@ import java.lang.StringBuilder
  */
 class BinaryPlus {
 
-//    两个二进制的树相加
+//    两个二进制的数相加
     fun addBinary(a: String, b: String): String {
         if (a.isNullOrEmpty()) return b
         if (b.isNullOrEmpty()) return a
@@ -94,5 +94,55 @@ class BinaryPlus {
             result = (result shl 1) + resultTemp[i] % 3
         }
         return result
+    }
+
+
+//    假设两个字符串的长度分别为p和q, 比较两个字符串是否相等时，hash算法将时间复杂度从O（pq）降到了O（1）
+//    字符串可以转换成一个固定长度的数组（因为字母的个数固定26），也可以转换成一个Int数字。
+//    转换成数组后，for循环旧变成了固定的26。
+//    转换成Int后就可以进行位运算(与 或 异或 左移 右移 )
+    fun maxProduct(words: List<String>): Int {
+        val list: ArrayList<IntArray> = ArrayList()
+        for (word in words) {
+            val temp = IntArray(26)
+            word.forEach {
+                temp[it - 'a'] = 1
+            }
+            list.add(temp)
+        }
+        var result = 0
+        for (i in words.indices) {
+            for (j in (i + 1) until words.size) {
+                var isSame = false
+                for (k in 0 until 26) {
+                    if (list[i][k] == 1 && list[j][k] == 1) {
+                        isSame = true
+                        break
+                    }
+                }
+                if (!isSame) {
+                    result = result.coerceAtLeast(words[i].length * words[j].length)
+                }
+            }
+        }
+        return result
+    }
+
+
+    fun maxProduct1(words: List<String>): Int {
+        val binArray: IntArray = IntArray(26)
+        for (i in words.indices) {
+            words[i].forEach {
+                binArray[i] = (1 shl (it - 'a')) or binArray[i]
+            }
+        }
+        var result = 0
+        for (i in words.indices) {
+            for (j in (i +1) until words.size) {
+                if ((binArray[i] and  binArray[j]) == 0) {
+                    result = result.coerceAtLeast(words[i].length * words[j].length)
+                }
+            }
+        }
     }
 }
