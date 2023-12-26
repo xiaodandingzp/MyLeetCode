@@ -48,4 +48,48 @@ class StringTest {
         maxLength = maxLength.coerceAtLeast(j - i)
         return maxLength
     }
+
+
+//    包含所有字符的最短字符串
+    fun minWindow(s: String, t: String): String {
+        val hashMap = HashMap<Char, Int>()
+        for (c in t) {
+            hashMap[c] = hashMap.getOrDefault(c, 0) + 1
+        }
+        var count = hashMap.size
+        var end = 0
+        var start = 0
+        var endIndex = 0
+        var startIndex = 0
+        var minLength = Int.MAX_VALUE
+        while (end < s.length || (count == 0 && end == s.length)) {
+            if (count > 0) {
+                val cIns = s[end]
+                if (hashMap.containsKey(cIns)) {
+                    hashMap[cIns] = hashMap[cIns]!! - 1
+                    if (hashMap[cIns] == 0) {
+                        count--
+                    }
+                }
+                end++
+            } else {
+                if (end - start < minLength) {
+                    minLength = end - start
+                    startIndex = start
+                    endIndex = end
+                }
+                val cIns = s[start]
+                if (hashMap.containsKey(cIns)) {
+                    hashMap[cIns] = hashMap[cIns]!! + 1
+                    if (hashMap[cIns] == 1) {
+                        count++
+                    }
+                }
+                start++
+            }
+        }
+        return if (minLength < Int.MAX_VALUE) {
+            return s.substring(startIndex, endIndex)
+        } else ""
+    }
 }
