@@ -92,4 +92,28 @@ class StringTest {
             return s.substring(startIndex, endIndex)
         } else ""
     }
+
+
+//    判断s是否是回文字符串 只考虑字母和数字符号 忽略大小写
+
+    fun isPalindrome(s: String): Boolean {
+        var i = 0
+        var j = s.length - 1
+        var ch1 = ""
+        var ch2 = ""
+        while (i < j) {
+            if (!s[i].isLetterOrDigit()) {
+                i++
+            } else if (!s[j].isLetterOrDigit()) {
+                j--
+            } else {
+                ch1 = s[i].lowercase()
+                ch2 = s[j].lowercase()
+                if (s[i] != s[j]) return false
+                i++
+                j--
+            }
+        }
+        return true
+    }
 }
