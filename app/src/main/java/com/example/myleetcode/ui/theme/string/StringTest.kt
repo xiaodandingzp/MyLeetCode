@@ -129,4 +129,30 @@ class StringTest {
         return star >= end || isPalindrome(s.substring(star, end - 1))
                 || isPalindrome(s.substring(star + 1, end))
     }
+
+
+//    计算字符串中回文子字符串的个数
+    fun countPalindrome(s: String): Int {
+        if (s.isNullOrEmpty()) return 0
+        var count = 0
+        for (i in s.indices) {
+            count += countPalindrome(s, i, i)
+            count += countPalindrome(s, i ,i + 1)
+        }
+        return count
+    }
+
+    private fun countPalindrome(s: String, star: Int, end: Int): Int {
+        var i = star
+        var j = end
+        var count = 0
+        while (i >= 0 && j < s.length) {
+            if (s[i] == s[j]) {
+                count++
+                i--
+                j++
+            } else break
+        }
+        return count
+    }
 }
