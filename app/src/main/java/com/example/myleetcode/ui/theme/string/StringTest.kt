@@ -109,11 +109,24 @@ class StringTest {
             } else {
                 ch1 = s[i].lowercase()
                 ch2 = s[j].lowercase()
-                if (s[i] != s[j]) return false
+                if (ch1 != ch2) return false
                 i++
                 j--
             }
         }
         return true
+    }
+
+//    最多从字符串中删除一个字符能不能得到一个回文字符串
+    fun validPalindrome(s: String): Boolean {
+        var star = 0
+        var end = s.length - 1
+        while (star < end) {
+            if (s[star] != s[end]) break
+            star++
+            end--
+        }
+        return star >= end || isPalindrome(s.substring(star, end - 1))
+                || isPalindrome(s.substring(star + 1, end))
     }
 }
