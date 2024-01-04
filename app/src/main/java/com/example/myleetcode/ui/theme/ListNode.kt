@@ -150,7 +150,7 @@ class ListNode(var `val`: Int) {
         if (head?.next == null) return head
         var pre: ListNode? = null
         var cur = head
-        while (cur?.next != null) {
+        while (cur != null) {
             val next = cur.next
             cur.next = pre
             pre = cur
@@ -260,4 +260,5 @@ class ListNode(var `val`: Int) {
         }
         return result.next
     }
+
 }
