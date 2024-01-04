@@ -159,6 +159,34 @@ class ListNode(var `val`: Int) {
         return pre
     }
 
+    fun isPalindromeListNode(head: ListNode?): Boolean {
+        if (head?.next == null) return true
+        var fast = head.next
+        var slow = head
+        var second = head
+        while (fast?.next?.next != null) {
+            fast = fast.next!!.next
+            slow = slow!!.next
+        }
+        if (fast!!.next != null) {
+            second = slow?.next?.next
+        }
+        slow?.next = null
+        return isEqual(head, fanzhuan2(second))
+    }
+
+    fun isEqual(list1: ListNode?, list2: ListNode?): Boolean {
+        var node1 = list1
+        var node2 = list2
+        while (node1 != null && node2 != null) {
+            if(node1.`val` != node2.`val`) return false
+            node1 = node1.next
+            node2 = node2.next
+        }
+        return node1 == null && node2 == null
+    }
+
+
 // 两两翻转链表---非递归
     fun fanzhuanTwo(head: ListNode?): ListNode? {
         if (head?.next == null) return head
