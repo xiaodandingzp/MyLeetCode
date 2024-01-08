@@ -58,4 +58,23 @@ class MyStack {
         area = Math.max(area, left)
         return Math.max(area, right)
     }
+
+
+//    矩阵中最大面积的矩形
+    fun maxRectangle(arrs: Array<IntArray>): Int {
+        if (arrs.isEmpty() || arrs[0].isEmpty()) return 0
+        val h = arrs[0].size
+        val w = arrs.size
+        val tempArray = arrs[0]
+        var maxResult = 0
+        maxResult = Math.max(maxResult, largestRectangleArea(tempArray))
+        for (i in 0 until w) {
+            for (j in 0 until h) {
+                if (arrs[i][j] == 0) tempArray[j] = 0
+                else tempArray[j]++
+            }
+            maxResult = Math.max(maxResult, largestRectangleArea(tempArray))
+        }
+        return maxResult
+    }
 }
