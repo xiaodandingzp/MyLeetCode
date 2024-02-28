@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Comparator;
 
 /**
+ * 可以用于解决组合和排列相关的问题
  * 回溯法：如果一个问题需要若干步骤，并且在每一个步都面临若干选选项，那么可以用回溯法来解决。
  * 回溯法解决的问题有一个特点，就是这个问题存在多个解，而题目往往需要列出所有的解法
  */
@@ -76,4 +77,22 @@ public class Zuhe13 {
         }
     }
 
+
+//   84 生成匹配的括号
+    List<String> test3(int n) {
+        List<String> result = new ArrayList<>();
+        help3(n, n, "", result);
+        return result;
+    }
+
+    void help3(int left, int right, String temp, List<String> result) {
+        if (left == 0 && right == 0) {
+            result.add(temp);
+        } else {
+            help3(left - 1, right, temp + "(", result);
+            if (left < right) {
+                help3(left, right - 1, temp + ")", result);
+            }
+        }
+    }
 }
