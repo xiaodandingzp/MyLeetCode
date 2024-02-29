@@ -2,6 +2,7 @@ package com.example.myleetcode.ui.theme.zuhe13;
 
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Comparator;
 
@@ -29,7 +30,8 @@ public class Zuhe13 {
     public void combinationSum(List<Integer> array, int target, List<List<Integer>> result,
                      List<Integer> temp, int index) {
         if (target == 0) {
-            result.add(temp);
+            ////////   注意这里要新建一个LinkedList  而不是直接传递temp
+            result.add(new LinkedList<>(temp));
         } else if (target > 0 && index < array.size()) {
             combinationSum(array, target, result, temp, getNext(index, array));
             temp.add(array.get(index));
@@ -94,5 +96,35 @@ public class Zuhe13 {
                 help3(left, right - 1, temp + ")", result);
             }
         }
+    }
+
+
+//    86 回文字符串
+    List<List<String>> test4(String s) {
+        List<List<String>> result = new ArrayList<>();
+        help4(s, result, 0, new LinkedList<>());
+        return result;
+    }
+
+    void help4(String s, List<List<String>> result, int index, LinkedList<String> temp) {
+        if (index == s.length()) {
+            result.add(new LinkedList<>(temp));
+        } else {
+            for (int j = index + 1; j <= s.length(); j++) {
+                String tempS = s.substring(index, j);
+                if (isPalindrome(tempS, index, j)) {
+                    temp.add(tempS);
+                    help4(s, result, j, temp);
+                    temp.removeLast();
+                }
+            }
+        }
+    }
+
+    boolean isPalindrome(String s, int start, int end) {
+        while (start < end) {
+            if (s.charAt(start) != s.charAt(end)) return false;
+        }
+        return true;
     }
 }
