@@ -127,4 +127,39 @@ public class Zuhe13 {
         }
         return true;
     }
+
+//   有效的IP地址
+    public List<String> restoreIpAddresses(String s) {
+        List<String> result = new LinkedList<>();
+        help5(s, 0, 0, result, "");
+        return result;
+    }
+
+    void help5(String s, int index, int count, List<String> result, String temp) {
+        if (index == s.length() && count == 4) {
+            result.add(temp);
+            return;
+        }
+        if (s.length() == index) return;
+        if (count == 4) return;
+        for (int j = index + 1; j <= s.length(); j++) {
+            if (isVailInt(s, index, j)) {
+                if (count == 0) {
+                    help5(s, j, count + 1, result, temp + s.substring(index, j));
+                } else {
+                    help5(s, j, count + 1, result, temp + '.' + s.substring(index, j));
+                }
+            } else break;
+        }
+    }
+
+    boolean isVailInt(String s, int start, int end) {
+        if (s.charAt(start) == '0' && end > start + 1) return false;
+        int ipValue = 0;
+        for (int i = start; i < end; i++) {
+            ipValue = ipValue * 10 + s.charAt(i) - 'a';
+            if (ipValue > 255) return false;
+        }
+        return true;
+    }
 }
