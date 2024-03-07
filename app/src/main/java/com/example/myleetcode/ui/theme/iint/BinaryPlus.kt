@@ -15,7 +15,7 @@ class BinaryPlus {
 
 //    两个二进制的数相加
     fun addBinary(a: String, b: String): String {
-    arrayOf()
+//    arrayOf()
         if (a.isNullOrEmpty()) return b
         if (b.isNullOrEmpty()) return a
         var aLength = a.length - 1
