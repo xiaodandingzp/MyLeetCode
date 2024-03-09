@@ -40,7 +40,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         shape = RoundedCornerShape(50),
         modifier = Modifier.padding(Dp(100f)),
         onClick = {
-            val result = Test33.findIndex(intArrayOf(4), 6)
+            val result = Test33.findIndex(intArrayOf(4,5,6,7,8,1,2,3), 8)
             Log.i("zpppppp", "result:$result")
     }) {
         Text(text = "点击测试")
