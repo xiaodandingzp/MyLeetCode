@@ -40,7 +40,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         shape = RoundedCornerShape(50),
         modifier = Modifier.padding(Dp(100f)),
         onClick = {
-            val result = Test32().longestValidParentheses("(())(")
+            val result = Test32().longestValidParentheses3("())(())")
             Log.i("zpppppp", "result:$result")
     }) {
         Text(text = "点击测试")
