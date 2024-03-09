@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.example.myleetcode.ui.theme.MyLeetCodeTheme
-import com.example.myleetcode.ui.theme.leedcode.Test33
+import com.example.myleetcode.ui.theme.leedcode.Test32
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +40,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         shape = RoundedCornerShape(50),
         modifier = Modifier.padding(Dp(100f)),
         onClick = {
-            val result = Test33.findIndex(intArrayOf(4,5,6,7,8,1,2,3), 8)
+            val result = Test32().longestValidParentheses("(())(")
             Log.i("zpppppp", "result:$result")
     }) {
         Text(text = "点击测试")
