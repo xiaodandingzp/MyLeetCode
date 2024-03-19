@@ -4,6 +4,7 @@ import java.util.Stack;
 
 public class Test42 {
 
+//    单调栈
     public int trap(int[] heights) {
         if (heights.length < 1) return 0;
         int maxResult = 0;
@@ -19,6 +20,27 @@ public class Test42 {
                 maxResult += height * width;
             }
             stack.push(i);
+        }
+        return maxResult;
+    }
+
+
+    public int trap1(int[] heights) {
+        if (heights.length < 1) return 0;
+        int maxResult = 0;
+        int[] leftMax = new int[heights.length];
+        leftMax[0] = heights[0];
+        for (int i = 1; i < heights.length; i++) {
+            leftMax[i] = Math.max(heights[i], leftMax[i - 1]);
+        }
+        int[] rightMax = new int[heights.length];
+        rightMax[heights.length - 1] = heights[heights.length - 1];
+        for (int i = heights.length - 2; i > 0; i--) {
+            rightMax[i] = Math.max(heights[i], leftMax[i + 1]);
+        }
+
+        for (int i = 0; i < heights.length; i++) {
+            maxResult += Math.min(leftMax[i], rightMax[i]) - heights[i];
         }
         return maxResult;
     }
