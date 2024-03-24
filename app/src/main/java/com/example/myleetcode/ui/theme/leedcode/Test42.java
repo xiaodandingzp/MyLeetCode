@@ -35,8 +35,8 @@ public class Test42 {
         }
         int[] rightMax = new int[heights.length];
         rightMax[heights.length - 1] = heights[heights.length - 1];
-        for (int i = heights.length - 2; i > 0; i--) {
-            rightMax[i] = Math.max(heights[i], leftMax[i + 1]);
+        for (int i = heights.length - 2; i >= 0; i--) {
+            rightMax[i] = Math.max(heights[i], rightMax[i + 1]);
         }
 
         for (int i = 0; i < heights.length; i++) {

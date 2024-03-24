@@ -1,7 +1,5 @@
 package com.example.myleetcode.ui.theme.leedcode;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -15,12 +13,10 @@ public class Test354 {
 
         int n = envelopes.length;
         Arrays.sort(envelopes, new Comparator<int[]>() {
-            public int compare(int[] e1, int[] e2) {
-                if (e1[0] != e2[0]) {
-                    return e1[0] - e2[0];
-                } else {
-                    return e1[1] - e2[1];
-                }
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                if (o1[0] != o2[0]) return o1[0] - o2[0];
+                return o2[1] - o1[1];
             }
         });
 
@@ -30,12 +26,28 @@ public class Test354 {
             int num = envelopes[i][1];
             if (num > f.get(f.size() - 1)) {
                 f.add(num);
+            } else {
+                int index = help(f, num);
+                f.set(index, num);
             }
-            f.forEach(data -> Log.i("zppppp", "num: " + num + "   " + String.valueOf(data)));
-            Log.i("zppppp", "################################");
         }
         return f.size();
     }
+
+    private int help(List<Integer> f, int target) {
+        int left = 0;
+        int right = f.size() - 1;
+        while (left < right) {
+            int mid = (left + right) / 2;
+            if (f.get(mid) < target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        return left;
+    }
+
 
     public int maxEnvelopes1(int[][] envelopes) {
         if (envelopes.length <= 1) return 0;
