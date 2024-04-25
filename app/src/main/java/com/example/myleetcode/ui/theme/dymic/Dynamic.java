@@ -82,4 +82,55 @@ public class Dynamic {
         }
         return dp[t.length()];
     }
+
+    public boolean test(String s1, String s2, String s3) {
+        if (s1.length() != (s2.length() + s3.length())) return false;
+        boolean[][] dp = new boolean[s2.length() + 1][s3.length() + 1];
+        dp[0][0] = true;
+
+        for (int i = 0; i < s2.length(); i++) {
+            dp[i + 1][0] = s1.charAt(i) == s2.charAt(i);
+        }
+        for (int i = 0; i < s3.length(); i++) {
+            dp[0][i + 1] = s1.charAt(i) == s2.charAt(i);;
+        }
+
+        for (int i = 0; i < s2.length(); i++) {
+            for (int j = 0; j < s3.length(); j++) {
+                char cTempForS1 = s1.charAt(i + j);
+                if (cTempForS1 == s2.charAt(i)) {
+                    dp[i + 1][j + 1] = dp[i][j + 1];
+                }
+                 if (cTempForS1 == s3.charAt(j)) {
+                    dp[i + 1][j + 1] = dp[i + 1][j];
+                }
+            }
+        }
+        return dp[s2.length()][s3.length()];
+    }
+
+
+    public boolean test1(String s1, String s2, String s3) {
+        if (s1.length() != (s2.length() + s3.length())) return false;
+        if (s2.length() < s3.length()) {
+            return test1(s1, s3, s2);
+        }
+        boolean[] dp = new boolean[s3.length() + 1];
+        dp[0] = true;
+
+        for (int i = 0; i < s3.length(); i++) {
+            dp[i + 1] = s1.charAt(i) == s3.charAt(i);
+        }
+
+        for (int i = 0; i < s2.length(); i++) {
+            dp[0] = dp[0] && (s1.charAt(i) == s2.charAt(i));
+            for (int j = 1; j < s3.length(); j++) {
+                char cTempForS1 = s1.charAt(i + j);
+                char cTempForS2 = s2.charAt(i + j);
+                char cTempForS3 = s3.charAt(i + j);
+                dp[j + 1] = (dp[j] && cTempForS1 == cTempForS2) || (dp[j + 1] && cTempForS1 == cTempForS3);
+            }
+        }
+        return dp[s3.length()];
+    }
 }
