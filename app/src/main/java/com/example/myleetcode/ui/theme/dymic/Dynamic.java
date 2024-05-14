@@ -1,5 +1,13 @@
 package com.example.myleetcode.ui.theme.dymic;
 
+
+/**
+ * 动态规划背包问题： https://zhuanlan.zhihu.com/p/93857890
+ * 背包问题分为：
+ *  01背包问题
+ *  完全背包问题： 完全背包（unbounded knapsack problem）与01背包不同就是每种物品可以有无限多个：一共有N种物品，每种物品有无限多个
+ *  多重背包问题
+ */
 public class Dynamic {
     public int minCost(int[][] cost) {
         if (cost.length < 1) return 0;
