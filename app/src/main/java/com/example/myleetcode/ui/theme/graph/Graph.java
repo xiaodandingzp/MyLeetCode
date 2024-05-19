@@ -40,4 +40,39 @@ public class Graph {
         }
         return true;
     }
+
+
+
+    public int[][] updateMatrix(int [][] graph) {
+        int row = graph.length;
+        int col = graph[0].length;
+        int[][] dis = new int[row][col];
+        Queue<int[]> queue = new ArrayDeque<>();
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (graph[i][j] == 0) {
+                    queue.add(new int[]{i, j});
+                    dis[i][j] = 0;
+                } else {
+                    dis[i][j] = Integer.MAX_VALUE;
+                }
+            }
+        }
+        int[][] nei = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+        while (!queue.isEmpty()) {
+            int[] index = queue.poll();
+            for (int i = 0; i < 4; i++) {
+                int[] offset = nei[i];
+                int r = index[0] + offset[0];
+                int c = index[1] + offset[1];
+                if (r >= 0 && r < row && c >= 0 && c < col) {
+                    if (dis[r][c] > dis[index[0]][index[1]] + 1) {
+                        dis[r][c] = dis[index[0]][index[1]] + 1;
+                        queue.add(new int[]{r, c});
+                    }
+                }
+            }
+        }
+        return dis;
+    }
 }
