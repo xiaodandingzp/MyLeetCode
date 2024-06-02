@@ -40,4 +40,34 @@ object MySort {
         fastSort(arr, 0, startTemp - 1)
         fastSort(arr, endTemp + 1, 0)
     }
+
+    /***
+     * 计数排序
+     * 如果数组的长度为n, 蒸熟范围为K 时间复杂度为O(n + k)   空间复杂度为：O(k).
+     * 计数排序适用于k远小于n的场景
+     * 基本思想：
+     *  1，先统计数组中每个整数在数组中出现的次数。
+     *  2，然后按照从小到大的顺序将每个整数按照它出现的次数填充到数组中。
+     */
+    fun arraySortByCount(nums: Array<Int>): Array<Int> {
+        var max = Int.MAX_VALUE
+        var min = Int.MIN_VALUE
+        for (i in nums.indices) {
+            if (nums[i] > max) max = nums[i]
+            if (nums[i] < min) min = nums[i]
+        }
+
+        val tempArray = Array<Int>(max - min + 1) { 0 }
+        for (num in nums) {
+            tempArray[num - min]++
+        }
+        var index = 0
+        for (i in min..max) {
+            while (tempArray[i - min] > 0) {
+                nums[index++] = i
+                tempArray[i - min]--
+            }
+        }
+        return nums
+    }
 }
