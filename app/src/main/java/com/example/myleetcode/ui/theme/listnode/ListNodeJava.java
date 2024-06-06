@@ -18,7 +18,7 @@ public class ListNodeJava {
         ListNodeCl cur = head.next;
         ListNodeCl temp = revertTwo(cur.next);
         head.next = temp;
-        temp.next = head;
+        cur.next = head;
         return cur;
     }
 
