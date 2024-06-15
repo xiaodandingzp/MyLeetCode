@@ -2,6 +2,7 @@ package com.example.myleetcode.ui.theme.leedcode;
 
 import java.util.Stack;
 
+// 接雨水
 public class Test42 {
 
 //    单调栈
@@ -16,7 +17,7 @@ public class Test42 {
                 int left = stack.peek();
                 if (left == -1) break;
                 int width = i - left - 1;
-                int height = Math.min(heights[left], heights[i] - heights[top]);
+                int height = Math.min(heights[left] - heights[top], heights[i] - heights[top]);
                 maxResult += height * width;
             }
             stack.push(i);
