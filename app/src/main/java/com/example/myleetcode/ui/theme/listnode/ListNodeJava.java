@@ -81,6 +81,29 @@ public class ListNodeJava {
         return temp;
     }
 
+    private ListNodeCl mergeK(ListNodeCl[] lists) {
+        ListNodeCl result = new ListNodeCl();
+        ListNodeCl resultTem = result;
+        if (lists.length > 0) {
+            int small = 0;
+            while (true) {
+                for (int i = 0; i < lists.length; i++) {
+                    if (lists[small] == null) {
+                        small = i;
+                        continue;
+                    }
+                    if (lists[i] != null && lists[small].value >= lists[i].value) small = i;
+                }
+                if (lists[small] != null) {
+                    resultTem.next = lists[small];
+                    resultTem = resultTem.next;
+                    lists[small] = lists[small].next;
+                } else break;
+            }
+        }
+        return result.next;
+    }
+
 
 
     class ListNodeCl {
