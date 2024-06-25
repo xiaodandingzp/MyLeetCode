@@ -1,5 +1,7 @@
 package com.example.myleetcode.ui.theme.leedcode;
 
+
+// 45 跳跃游戏 II
 public class Test45 {
 
     int jump(int[] array) {
@@ -21,17 +23,17 @@ public class Test45 {
     }
 
 
-    public int jump1(int[] arrays) {
-        int minCount = arrays.length;
-        int maxStep = 0;
-        int end = 0;
-        for (int i = 0; i < arrays.length; i++) {
-            maxStep = Math.max(maxStep, i + arrays[i]);
-            if (i == end) {
-                end = maxStep;
-                minCount++;
+    public int jump1(int[] nums) {
+        int result = 0;
+        int nextMax = 0;
+        int curNext = 0;
+        for (int i = 0; i < nums.length; i++) {
+            nextMax = Math.max(nextMax, i + nums[i]);
+            if (i < nums.length - 1 && i == curNext) {
+                curNext = nextMax;
+                result++;
             }
         }
-        return minCount;
+        return result;
     }
 }
