@@ -33,6 +33,8 @@ public class Test45 {
                 curNext = nextMax;
                 result++;
             }
+            String[] rr = new String[44];
+            String.join(" ", rr);
         }
         return result;
     }

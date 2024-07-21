@@ -2,7 +2,11 @@ package com.example.myleetcode.ui.theme.graph;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Queue;
+import java.util.Set;
+import java.util.Stack;
 
 public class Graph {
 
@@ -74,5 +78,55 @@ public class Graph {
             }
         }
         return dis;
+    }
+
+    public String alienOrder(String[] words) {
+        if (words.length == 0) return "";
+        HashMap<Character, Set<Character>> wordMap = new HashMap<>();
+        HashMap<Character, Integer> deeps = new HashMap<>();
+        for (String word : words) {
+            for (int i = 0; i < word.length(); i++) {
+                wordMap.putIfAbsent(word.charAt(i), new HashSet<>());
+                deeps.putIfAbsent(word.charAt(i), 0);
+            }
+        }
+
+        for (int i = 1; i < words.length; i++) {
+            String word1 = words[i - 1];
+            String word2 = words[i];
+            if (word1.startsWith(word2) && !word1.equals(word2)) {
+                break;
+            }
+            for (int j = 0; j < word1.length() && j < word2.length(); j++ ) {
+                if (word1.charAt(j) != word2.charAt(2)) {
+                    Set<Character> set = wordMap.get(word1.charAt(j));
+                    set.add(word2.charAt(j));
+                    wordMap.putIfAbsent(word1.charAt(j), set);
+                    int count = deeps.get(word2.charAt(j));
+                    deeps.putIfAbsent(word2.charAt(j),  count + 1);
+                    break;
+                }
+            }
+        }
+        Stack<Character> stack = new Stack<>();
+        StringBuilder result = new StringBuilder();
+        for (char c : deeps.keySet()) {
+            if (deeps.get(c) != 0) {
+                stack.add(c);
+            }
+        }
+
+        while (!stack.isEmpty()) {
+            char temp = stack.pop();
+            result.append(temp);
+            for (char c : wordMap.get(temp)) {
+                deeps.putIfAbsent(c, deeps.get(c) - 1);
+                if (deeps.get(c) == 0) {
+                    stack.add(c);
+                }
+            }
+        }
+        if (result.length() == words.length) return result.toString();
+        return "";
     }
 }
