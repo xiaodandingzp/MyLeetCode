@@ -62,6 +62,48 @@ public class Tree {
         return result;
     }
 
+    public int count(int n) {
+        if (n <= 1) return 1;
+
+        return counHelper(n, 0, new TreeNode(1));
+    }
+
+    private int counHelper(int n, int index, TreeNode root) {
+        if (!isSearchTree(root)) return 0;
+        if (index > n) return 1;
+        TreeNode curNode = new TreeNode(index);
+        curNode.left = root;
+        int rootCount = counHelper(n, index + 1, curNode);
+        curNode.left = null;
+        TreeNode temp = root;
+        while (temp.right != null) {
+            temp = temp.right;
+        }
+        temp.right = curNode;
+        int rightCount = counHelper(n, index + 1, root);
+        return  rootCount + rightCount;
+    }
+
+    private boolean isSearchTree(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        stack.add(root);
+        int pre = Integer.MIN_VALUE;
+        while (!stack.empty() || root != null) {
+            while (root.left != null) {
+                stack.add(root.left);
+                root = root.left;
+            }
+            root = stack.pop();
+            if (root.val > pre) {
+                pre = root.val;
+                root = root.right;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
 
 
     class TreeNode {
