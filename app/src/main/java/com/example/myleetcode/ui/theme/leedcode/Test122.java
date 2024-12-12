@@ -12,4 +12,14 @@ public class Test122 {
         }
         return Math.max(dp[size - 1][0], dp[size - 1][1]);
     }
+
+//    贪心算法--每天都可以买卖
+    public int maxProfit1(int[] prices) {
+        int result = 0;
+        for (int i = 0; i < prices.length - 1; i++) {
+            int temp = prices[i + 1] - prices[i];
+            if (temp > 0) result += temp;
+        }
+        return result;
+    }
 }
