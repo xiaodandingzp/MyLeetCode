@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 // 151. 反转字符串中的单词
+// Arrays 操作数组
+// Collections 操作集合
+
 public class Test151 {
     public String reverseWords(String s) {
         s = s.trim();
@@ -23,6 +26,31 @@ public class Test151 {
 //                return 0;
 //            }
 //        });
+        return String.join(" ", list);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public String reverseWords1(String s) {
+        s = s.trim();
+        List<String> list = Arrays.asList(s.split("\\s+"));
+        Collections.reverse(list);
         return String.join(" ", list);
     }
 }
