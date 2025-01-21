@@ -34,4 +34,36 @@ public class Sort {
         nums[des] = nums[pre];
         nums[pre] = temp;
     }
+
+
+    // 基数排序
+//    如果有负数 要单独处理
+    private void jishuSort(int [] nums) {
+        int size = nums.length;
+        if (size <= 1) return;
+        int maxNum = nums[0];
+        for (int i = 1; i < size; i++) {
+            maxNum = Math.max(maxNum, nums[i]);
+        }
+        int count = (maxNum + "").length();
+
+        int temp = 10;
+        int[][] duck = new int[10][size];
+        for (int i = 0; i < count; i++) {
+            for (int j = 0; j < size; j++) {
+                int position = nums[j] % temp / (temp / 10);
+                duck[position][j] = nums[j];
+            }
+            int index = 0;
+            for (int p = 0; p < 10; p++) {
+                for (int j = 0; j < size; j++) {
+                    if (duck[p][j] > 0) {
+                        nums[index++] = duck[p][j];
+                        duck[p][j] = 0;
+                    }
+                }
+            }
+            temp = temp * 10;
+        }
+    }
 }
