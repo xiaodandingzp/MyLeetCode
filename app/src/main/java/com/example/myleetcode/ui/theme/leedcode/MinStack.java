@@ -2,25 +2,31 @@ package com.example.myleetcode.ui.theme.leedcode;
 
 import java.util.ArrayDeque;
 
-public class MinStack {
-    ArrayDeque<Integer> stack = new ArrayDeque<>();
-    int min = -1;
 
-    public int pop() {
-        int dif = stack.pop();
+//155. 最小栈
+public class MinStack {
+    ArrayDeque<Long> stack = new ArrayDeque<>();
+    long min = -1;
+
+    public void pop() {
+        long dif = stack.pop();
         if (dif < 0) {
             min = min - dif;
-            return min;
         }
-        return min + dif;
+    }
+
+    public int top() {
+        if (stack.peek() < 0) {
+            return (int)min;
+        } else return (int)(min + stack.peek());
     }
 
     public void push(int value) {
         if (stack.isEmpty()) {
-            stack.push(0);
+            stack.push(0l);
             min = value;
         } else {
-            int dif = value - min;
+            long dif = value - min;
             stack.push(dif);
             if (dif < 0) {
                 min = value;
@@ -29,6 +35,6 @@ public class MinStack {
     }
 
     public int getMin() {
-        return min;
+        return (int)min;
     }
 }
