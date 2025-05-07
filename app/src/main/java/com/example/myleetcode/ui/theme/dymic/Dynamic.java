@@ -138,4 +138,30 @@ public class Dynamic {
         }
         return dp[s3.length()];
     }
+
+    public int minCut1(String s) {
+        boolean[][] isP = new boolean[s.length() + 1][s.length() + 1];
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = 0; j <= i; j++) {
+                if (s.charAt(i) == s.charAt(j) && (isP[j + 1][i - 1] || j >= i)) {
+                    isP[j][i] = true;
+                }
+            }
+        }
+        int[] dp = new int[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            if (isP[0][i]) {
+                dp[i] = 0;
+                continue;
+            } else {
+                dp[i] = i;
+            }
+            for (int j = 0; j < i; j++) {
+                if (isP[j][i]) {
+                    dp[i] = Math.min(dp[j -1] + 1, dp[i]);
+                }
+            }
+        }
+        return dp[s.length() - 1];
+    }
 }
